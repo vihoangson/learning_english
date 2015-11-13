@@ -13,6 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<thead>
 					<tr>
 						<th></th>
+						<th></th>
 						<th class="vietnamese" style="display:none;"></th>
 						<th></th>
 					</tr>
@@ -24,6 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		?>
 		<tr>
 			<td><h2><?php echo $key ?></h2></td>
+			<td><h2><?php echo ($data_pro[$key][0]?"/".$data_pro[$key][0]."/":""); ?></h2></td>
 			<td class="vietnamese" style="display:none;"><?php echo $value ?></td>
 			<td><img src='<?= base_url(); ?>asset/images/<?php echo $key ?>_0.jpg'><img src='<?= base_url(); ?>asset/images/<?php echo $key ?>_1.jpg'><img src='<?= base_url(); ?>asset/images/<?php echo $key ?>_2.jpg'></td>
 		</tr>
@@ -38,6 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<table class="table table-hover">
 				<thead>
 					<tr>
+						<th></th>
 						<th></th>
 						<th class="vietnamese" style="display:none;"></th>
 						<th></th>

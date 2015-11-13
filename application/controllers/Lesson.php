@@ -11,7 +11,8 @@ class Lesson extends CI_Controller {
 	public function list_v()
 	{
 		$this->load->model('vocabulary');
-		$data = ["data" => $this->vocabulary->getAll($this->uri->segment(3))];
+		$data = ["data" => $this->vocabulary->getAll($this->uri->segment(3)),"data_pro"=>$array_pro = $this->vocabulary->getAll_pro($this->uri->segment(3))];
+
 		$this->load->view('lesson/list',$data);
 	}
 
@@ -26,10 +27,12 @@ class Lesson extends CI_Controller {
 		$this->load->helper('LE');
 		$this->load->model('vocabulary');
 		$array = $this->vocabulary->getAll($this->uri->segment(3));
+		$array_pro = $this->vocabulary->getAll_pro($this->uri->segment(3));
 		if(remove_special_character($array[$_POST["text"]])== remove_special_character($_POST["type"])){
 			echo 1;
 		}else{
 			echo "<h2>".$_POST["text"]."</h2>";
+			echo "<h2>/".$array_pro[$_POST["text"]][0]."/</h2>";
 			echo "<h2 class='vietnamese' style='display:none;'>".$array[$_POST["text"]]."</h2>";
 			echo "<div class='img_box'>";
 			for($i=0;$i<19;$i++){
@@ -52,6 +55,21 @@ class Lesson extends CI_Controller {
 		<?php
 	}
 
+	private function get_data_google_translate_api($word){
+		$link = "https://translate.google.com/translate_a/single?client=t&sl=en&tl=vi&hl=vi&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=at&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&kc=3&tk=208724|331224&q=".$word;
+		$json = file_get_contents($link);
+		$array = (array_values((explode(",", str_replace(["[","]"], ["",""], $json)))) );
+		return $array;
+	}
+
+	public function transtale_api(){
+		// $this->load->model('vocabulary');
+		// $array_w = $this->vocabulary->getAll(1);
+		// foreach ($array_w as $key => $value) {
+		// 	$array = $this->get_data_google_translate_api(strtolower($key));
+		// 	echo "<p>".$key."____".($array[8])."____".$value."</p>";
+		// }
+	}
 
 
 }
