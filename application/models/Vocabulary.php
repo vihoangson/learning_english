@@ -3,8 +3,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Vocabulary extends CI_Model {
 
-	public function getAll(){
-		return $this->db_animal();
+	public function getAll($id_lesson){
+		$name_lesson = $this->get_cat_name($id_lesson);
+		return $this->{"db_".$name_lesson}();
+	}
+
+	public function get_cat_name($cat_id){
+		switch ($cat_id) {
+			case 1:
+				return "animal";
+				break;
+			
+			default:
+				return "animal";
+				break;
+		}
 	}
 
 	public function db_animal(){

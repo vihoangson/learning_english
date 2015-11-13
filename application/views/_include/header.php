@@ -8,7 +8,13 @@
 
 		<!-- Bootstrap CSS -->
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-
+		<?php 
+		if(isset($css)){
+			foreach ((array)$css as $key => $value) {
+				?><link href="<?= $value; ?>" rel="stylesheet"><?php
+			}
+		}
+		?>
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -21,4 +27,14 @@
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	</head>
 	<body>
+
 		<div class="container">
+		<ul class="nav navbar-nav">
+			<li class="active">
+				<a href="<?= base_url(); ?>">Trang chủ</a>
+			</li>
+			<li>
+				<a href="#">Link</a>
+			</li>
+		</ul>
+		<div class="clearfix"></div>

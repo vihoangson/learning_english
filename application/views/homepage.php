@@ -6,8 +6,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<h3>Mời bạn chọn bài học</h3>
 
 			<div class="row">
-				<div class="col-md-4">
-					<a href="<?= base_url(); ?>Lesson/index/1"><img src="http://placehold.it/300x300"></a>
+				<div class="col-md-4 text-center">
+					<a href="<?= base_url(); ?>Lesson/index/1">
+						<img src="<?= base_url(); ?>asset/img/animal.png">
+						<p><h3>Animal</h3></p>
+					</a>
 				</div>
 				<div class="col-md-4">
 
