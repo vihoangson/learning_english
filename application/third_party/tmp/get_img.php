@@ -9,7 +9,12 @@ preg_match_all("/[\"\']((https\:\/\/encrypted-tbn).+?)[\"\']/",$string,$return )
 foreach($return[1] as $key => $value){
 	downloadFile ($value, "images/".($_GET["n"]?$_GET["n"]:$_GET["w"])."_".$key.".jpg");
 }
-
+foreach($arr as $key =>$value){
+	if($i>50){
+		downloadFile("http://soundoftext.com/static/sounds/en/".strtolower($key).".mp3",APPPATH."../asset/".strtolower($key).".mp3");
+	}
+	$i++;
+}
 function downloadFile ($url, $path) {
 
 	$newfname = $path;
