@@ -12,9 +12,7 @@ class Lesson extends CI_Controller {
 	{
 		$this->load->model('vocabulary');
 		$data = [
-			"data" => $this->vocabulary->getAll($this->uri->segment(3)),
-			"data_pro"=> $this->vocabulary->getAll_pro($this->uri->segment(3)),
-			"arr_audio"=> $this->vocabulary->get_list_audio()
+			"data" => $this->vocabulary->getByCat($this->uri->segment(3)),
 		];
 		$this->load->view('lesson/list',$data);
 	}
@@ -29,8 +27,8 @@ class Lesson extends CI_Controller {
 	public function ajax_test(){
 		$this->load->helper('LE');
 		$this->load->model('vocabulary');
-		$array = $this->vocabulary->getAll($this->uri->segment(3));
-		$array_pro = $this->vocabulary->getAll_pro($this->uri->segment(3));
+		$array = $this->vocabulary->getByCat($this->uri->segment(3));
+		$array_pro = $this->vocabulary->getByCat_pro($this->uri->segment(3));
 		if(remove_special_character($array[$_POST["text"]])== remove_special_character($_POST["type"])){
 			echo 1;
 		}else{
@@ -72,7 +70,7 @@ class Lesson extends CI_Controller {
 
 	public function transtale_api(){
 		// $this->load->model('vocabulary');
-		// $array_w = $this->vocabulary->getAll(1);
+		// $array_w = $this->vocabulary->getByCat(1);
 		// foreach ($array_w as $key => $value) {
 		// 	$array = $this->get_data_google_translate_api(strtolower($key));
 		// 	echo "<p>".$key."____".($array[8])."____".$value."</p>";

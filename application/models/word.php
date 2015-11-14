@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Word extends CI_Model {
 
-	public function getAll($id_lesson){
+	public function getAll(){
 		$data = ($this->db->get('word')->result_array());		
 		return $data;
 	}
@@ -15,16 +15,11 @@ class Word extends CI_Model {
 		return $this->{"db_".$name_lesson}();
 	}
 
-	public function get_cat_name($cat_id){
-		switch ($cat_id) {
-			case 1:
-				return "animal";
-				break;
-
-			default:
-				return "animal";
-				break;
-		}
+	public function getByCat($cat_id){
+		$this->db->where('word_id_cat', $id);
+		$data = ($this->db->get('word')->result_array());
+		$name_lesson = $this->get_cat_name($id_lesson);
+		return $data;
 	}
 
 	public function get_list_audio(){
