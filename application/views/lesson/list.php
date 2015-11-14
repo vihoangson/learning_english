@@ -25,10 +25,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	foreach ($data as $key => $value) {
 		?>
 		<tr class="detail_word">
-			<td><h2 class="word_key" data-word="<?php echo strtolower($key); ?>"><?php echo $key; ?></h2><?php  echo ($arr_audio[strtolower($key)]?"audio":""); ?></td>
-			<td><h2><?php echo ($data_pro[$key][0]?"/".$data_pro[$key][0]."/":""); ?></h2></td>
-			<td class="vietnamese" style="display:none;"><?php echo $value ?></td>
-			<td><img src='<?= base_url(); ?>asset/images/<?php echo $key ?>_0.jpg'><img src='<?= base_url(); ?>asset/images/<?php echo $key ?>_1.jpg'><img src='<?= base_url(); ?>asset/images/<?php echo $key ?>_2.jpg'></td>
+			<td><h2 class="word_key" data-word="<?php echo strtolower($value["word_name"]); ?>"><?php echo $value["word_name"]; ?></h2>
+			<?php  echo ($value["word_audio"]?"audio":""); ?></td>
+			<td><h2><?php echo ($value["word_prononciation"]?"/".$value["word_prononciation"]."/":""); ?></h2></td>
+			<td class="vietnamese" style="display:none;"><?php echo $value["word_mean"] ?></td>
+			<td>
+			<?php 
+			for($i=0;$i<3;$i++){
+			  ?> <img src='<?= base_url(); ?>asset/images/<?php echo $value["word_name"] ?>_<?php echo $i; ?>.jpg'> <?php 
+			}
+			 ?>			
+			</td>
 		</tr>
 		<?php
 		if(($i%20)==0){

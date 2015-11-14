@@ -4,15 +4,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Vocabulary extends CI_Model {
 
 	public function getAll($id_lesson){
-		$data = ($this->db->get('word')->result_array());		
+		$data = ($this->db->get('word')->result_array());
 		return $data;
 	}
 
 	public function getById($id){
 		$this->db->where('id', $id);
 		$data = ($this->db->get('word')->result_array());
-		$name_lesson = $this->get_cat_name($id_lesson);
-		return $this->{"db_".$name_lesson}();
+		return $data;
+	}
+
+	public function getByCat($id_cat){
+		$this->db->where('word_id_cat', $id_cat);
+		$data = ($this->db->get('word')->result_array());
+		return $data;
 	}
 
 	public function get_cat_name($cat_id){
@@ -58,8 +63,8 @@ class Vocabulary extends CI_Model {
 		// "word_mean"
 		// "word_image"
 		// "word_audio"
-		// "id_cat"		
-		if($array["word_name"]=="") return fasle
+		// "id_cat"
+		if($array["word_name"]=="") return fasle;
 	}
 }
 

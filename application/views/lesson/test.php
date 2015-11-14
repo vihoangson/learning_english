@@ -11,12 +11,8 @@
 			</p>
 			<div class="box_word" data-cur="0">
 				<?php 
-				$array = $data;
-				$i=0;
-				$key_a = array_keys($array);
-				shuffle($key_a);
-				foreach ($key_a as $key => $value) {
-					echo '<span class="word'.$key.'" data-mean="'.htmlentities($array[$value]).'" data-word="'.strtolower($value).'">'.$value.'</span>';
+				foreach ($data as $key => $value) {
+					echo '<span class="word'.$key.'" data-word-id="'.$value["id"].'" data-mean="'.htmlentities($value["word_mean"]).'" data-word="'.strtolower($value["word_name"]).'">'.$value["word_name"].'</span>';
 					if($key>20){
 						break;
 					}
@@ -75,6 +71,9 @@
 				phatam(word);
 				event.preventDefault();
 			}
+			if(event.which==114){
+				event.preventDefault();
+			}
 		});
 
 		$(".typing").keyup(function(event) {
@@ -83,7 +82,7 @@
 					url: '<?= base_url(); ?>Lesson/ajax_test/',
 					type: 'post',
 					dataType: 'text',
-					data: {text: $(".word"+cur).html(),type:$(".typing").val()},
+					data: {text: $(".word"+cur).data("word-id"),type:$(".typing").val()},
 				})
 				.done(function(data) {
 					if(parseInt(data)==1){

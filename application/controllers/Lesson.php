@@ -27,19 +27,18 @@ class Lesson extends CI_Controller {
 	public function ajax_test(){
 		$this->load->helper('LE');
 		$this->load->model('vocabulary');
-		$array = $this->vocabulary->getByCat($this->uri->segment(3));
-		$array_pro = $this->vocabulary->getByCat_pro($this->uri->segment(3));
-		if(remove_special_character($array[$_POST["text"]])== remove_special_character($_POST["type"])){
+		$value = $this->vocabulary->getById($_POST["text"])[0];
+		if(remove_special_character($value["word_mean"])== remove_special_character($_POST["type"])){
 			echo 1;
 		}else{
-			echo "<h2>".$_POST["text"]."</h2>";
-			echo "<h2>/".$array_pro[$_POST["text"]][0]."/</h2>";
-			echo "<h2 class='vietnamese' style='display:none;'>".$array[$_POST["text"]]."</h2>";
+			echo "<h2>".$value["word_name"]."</h2>";
+			echo "<h2>/".$value["word_prononciation"]."/</h2>";
+			echo "<h2 class='vietnamese' style='display:none;'>".$value["word_mean"]."</h2>";
 			echo "<div class='img_box'>";
 			for($i=0;$i<19;$i++){
 				echo "
 				<div class='img_ele'>
-					<img src='".base_url()."asset/images/".$_POST["text"]."_".$i.".jpg'/>
+					<img src='".base_url()."asset/images/".$value["word_name"]."_".$i.".jpg'/>
 				</div>";
 			}
 			echo "</div>
