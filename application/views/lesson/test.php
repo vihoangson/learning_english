@@ -9,8 +9,10 @@
 	];
 	$this->load->view('_include/header',$data_header);
 ?>
+
 			<p>
-				<p><a href="<?= base_url(); ?>Lesson/index/1" id="" class="btn btn-info">Trở lại</a> </p> <div class="well"><?= $pagination; ?> </div>
+				<a href="<?= base_url(); ?>Lesson/index/<?= $this->uri->segment(3); ?>" id="" class="btn btn-info">Trở lại</a>
+				<div class="well"><?= $pagination; ?> </div>
 			</p>
 			<div class="box_word" data-cur="0">
 				<?php
@@ -51,6 +53,11 @@
 					});
 				}
 
+
+				$(".box_word span").each(function(index, el) {
+					$(this).prepend("<p class='mean' style='display:none'>"+$(this).data("mean")+"</p>");
+				});
+
 				$(".typing").focus();
 				cur = 0;
 				$(".word"+cur).addClass('current');	
@@ -84,13 +91,18 @@
 					phatam(word);
 					$(".typing").focus();
 				});
-
+				$(".typing").keyup(function(event) {
+					if(event.which==112){
+						$(".mean").fadeOut(200);
+						event.preventDefault();
+					}
+				});
 
 				$(".typing").keydown(function(event) {
 					if(event.which==116){
 					}
 					if(event.which==112){
-						$("#trogiup").trigger("click");
+						$(".mean").fadeIn(200);
 						event.preventDefault();
 					}
 					if(event.which==113){
@@ -133,7 +145,7 @@
 							window.setTimeout(function(){
 								$(".card").fadeOut(200);
 								$(".typing").val("");
-							}, 500);
+							}, 100);
 							phatam(word);
 
 							$(".word"+(parseInt(cur))).addClass('success');
@@ -180,7 +192,7 @@
 									</div>\
 									<div class="modal-footer">\
 										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\
-										<a href="../" class="btn btn-primary" >Trở về trang trước</a>\
+										<a href="<?= base_url(); ?>Lesson/index/<?= $this->uri->segment(3); ?><?php  ?>" class="btn btn-primary" >Trở về trang trước</a>\
 									</div>\
 								</div>\
 							</div>\
@@ -192,9 +204,6 @@
 
 			function open_meaning(time_open){
 				if($(".mean").length==0){
-					$(".box_word span").each(function(index, el) {
-						$(this).prepend("<p class='mean'>"+$(this).data("mean")+"</p>");
-					});
 					$(".mean").fadeIn(200);
 					window.setTimeout(function(){
 						$(".mean").remove();

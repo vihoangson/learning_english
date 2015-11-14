@@ -76,5 +76,21 @@
 				</div><!-- /.navbar-collapse -->
 			</nav>
 
+			<ol class="breadcrumb">
+				<li>
+					<a href="<?= base_url();?>">Trang chủ</a>
+				</li>
+				<?php if($this->router->fetch_class()){ ?>
+				<li>
+					<a href="<?= base_url().$this->router->fetch_class(); ?>"><?= $this->router->fetch_class(); ?></a>
+				</li>
+				<?php } ?>
+				<?php if($this->router->fetch_method() && $this->router->fetch_method() != "index"){ ?>
+				<li class="actice">
+					<?= $this->router->fetch_method(); ?>
+					<!-- <a href="<?= base_url().$this->router->fetch_class()."/".$this->router->fetch_method(); ?>"></a> -->
+				</li>
+				<?php } ?>
+			</ol>
 
 		<div class="clearfix"></div>

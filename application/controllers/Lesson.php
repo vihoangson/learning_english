@@ -10,16 +10,16 @@ class Lesson extends CI_Controller {
 
 	public function list_v()
 	{
-		$this->load->model('vocabulary');
+		$this->load->model('word');
 		$data = [
-			"data" => $this->vocabulary->getByCat($this->uri->segment(3)),
+			"data" => $this->word->getByCat($this->uri->segment(3)),
 		];
 		$this->load->view('lesson/list',$data);
 	}
 
 	public function test_v()
 	{
-		$this->load->model('vocabulary');
+		$this->load->model('word');
 		$page=(int)$this->uri->segment(4);
 		if($page==1 || $page==0){
 			$page = 0;
@@ -28,11 +28,11 @@ class Lesson extends CI_Controller {
 		}
 		$id = $this->uri->segment(3);
 		$per_page = 20;
-		$rs = $this->vocabulary->getAll($id);
+		$rs = $this->word->getAll($id);
 		for($i=$page*$per_page;$i<$per_page*($page+1);$i++){
 			$result[]=$rs[$i];
 		}
-
+		shuffle($result);
 		if(!$this->uri->segment(4)){
 			$page=0;
 		}else{
@@ -60,8 +60,8 @@ class Lesson extends CI_Controller {
 
 	public function ajax_test(){
 		$this->load->helper('LE');
-		$this->load->model('vocabulary');
-		$value = $this->vocabulary->getById($_POST["text"])[0];
+		$this->load->model('word');
+		$value = $this->word->getById($_POST["text"])[0];
 		if(remove_special_character($value["word_mean"])== remove_special_character($_POST["type"])){
 			echo 1;
 		}else{
@@ -102,8 +102,8 @@ class Lesson extends CI_Controller {
 	}
 
 	public function transtale_api(){
-		// $this->load->model('vocabulary');
-		// $array_w = $this->vocabulary->getByCat(1);
+		// $this->load->model('word');
+		// $array_w = $this->word->getByCat(1);
 		// foreach ($array_w as $key => $value) {
 		// 	$array = $this->get_data_google_translate_api(strtolower($key));
 		// 	echo "<p>".$key."____".($array[8])."____".$value."</p>";
