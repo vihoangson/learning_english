@@ -4,13 +4,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Vocabulary extends CI_Model {
 
 	public function getAll($id_lesson){
-		$name_lesson = $this->get_cat_name($id_lesson);
-		return $this->{"db_".$name_lesson}();
+		$data = ($this->db->get('word')->result_array());		
+		return $data;
 	}
 
-	public function getAll_pro($id_lesson){
+	public function getById($id){
+		$this->db->where('id', $id);
+		$data = ($this->db->get('word')->result_array());
 		$name_lesson = $this->get_cat_name($id_lesson);
-		return $this->{"pro_".$name_lesson}();
+		return $this->{"db_".$name_lesson}();
 	}
 
 	public function get_cat_name($cat_id){
@@ -18,223 +20,47 @@ class Vocabulary extends CI_Model {
 			case 1:
 				return "animal";
 				break;
-			
+
 			default:
 				return "animal";
 				break;
 		}
 	}
 
-	public function db_animal(){
-			$array = [
-		"Abalone" => "bào ngư",
-		"Aligator" => "cá sấu nam mỹ",
-		"Anteater" => "thú ăn kiến",
-		"Armadillo" => "ta tu",
-		"Ass" => "lừa",
-		"Baboon" => "khỉ đầu chó",
-		"Bat" => "dơi",
-		"Beaver" => " hải ly",
-		"Beetle" => " bọ cánh cứng",
-		"Blackbird" => "sáo",
-		"Boar" => " lợn rừng",
-		"Buck" => " nai đực",
-		"Bumble-bee" => " ong nghệ",
-		"Bunny" => "thỏ con",
-		"Butter-fly" => " bươm bướm",
-		"Camel" => " lạc đà",
-		"Canary" => " chim vàng anh",
-		"Carp" => "cá chép",
-		"Caterpillar" => "sâu bướm",
-		"Centipede" => "rết",
-		"Chameleon" => "tắc kè hoa",
-		"Chamois" => " sơn dương",
-		"Chihuahua" => "chó nhỏ có lông mươt",
-		"Chimpanzee" => "tinh tinh",
-		"Chipmunk" => " sóc chuột",
-		"Cicada" =>  "ve sầu",
-		"Cobra" => " rắn hổ mang",
-		"Cock roach" => "gián",
-		"Cockatoo" => "vẹt mào",
-		"Crab" => "cua",
-		"Crane" => "sếu",
-		"Cricket" => "dế",
-		"Crocodile" => "cá sấu",
-		"Dachshund" => "chó chồn",
-		"Dalmatian" => "chó đốm",
-		"Donkey" => "lừa",
-		"Dove, pigeon" => " bồ câu",
-		"Dragon- fly" => " chuồn chuồn",
-		"Dromedary" => " lạc đà 1 bướu",
-		"Duck" => " vịt",
-		"Eagle" => " chim đại bàng",
-		"Eel" => "lươn",
-		"Elephant" => "voi",
-		"Falcon" => "chim Ưng",
-		"Fawn" => " nai ,hươu nhỏ",
-		"Fiddler crab" => "cáy",
-		"Fire- fly" => " đom đóm",
-		"Flea" => " bọ chét",
-		"Fly" => "ruồi",
-		"Foal" => "ngựa con",
-		"Fox" => "cáo",
-		"Frog" => "ếch",
-		"Gannet" => "chim ó biển",
-		"Gecko" => " tắc kè",
-		"Gerbil" => "chuột nhảy",
-		"Gibbon" => "vượn",
-		"Giraffe" => "hươu cao cổ",
-		"Goat" => "dê",
-		"Gopher" => "chuột túi, chuột vàng hay rùa đất",
-		"Grasshopper" => "châu chấu nhỏ",
-		"Greyhound" => "chó săn thỏ",
-		"Hare" => "thỏ rừng",
-		"Hawk" => "diều hâu",
-		"Hedgehog" => "nhím",
-		"Heron" => "diệc",
-		"Hind" => "hươu cái",
-		"Hippopotamus" => " hà mã",
-		"Horseshoe crab" => "Sam",
-		"Hound" => "chó săn",
-		"HummingBird" => " chim ruồi",
-		"Hyena" => " linh cẫu",
-		"Iguana" => " kỳ nhông, kỳ đà",
-		"Insect" => "côn trùng",
-		"Jellyfish" => "sứa",
-		"Kingfisher" => "chim bói cá",
-		"Lady bird" => "bọ rùa",
-		"Lamp" => " cừu non",
-		"Lemur" => " vượn cáo",
-		"Leopard" => "báo",
-		"Lion" => "sư tử",
-		"Llama" => "lạc đà ko bướu",
-		"Locust" => " cào cào",
-		"Lopster" => "tôm hùm",
-		"Louse" => " cháy rân",
-		"Mantis" => " bọ ngựa",
-		"Mosquito" => " muỗi",
-		"Moth" => " bướm đêm ,sâu bướm",
-		"Mule" => "la",
-		"Mussel" => "trai",
-		"Nightingale" => "chim sơn ca",
-		"Octopus" => "bạch tuột",
-		"Orangutan" => "đười ươi",
-		"Ostrich" => " đà điểu",
-		"Otter" => "rái cá",
-		"Owl" => "cú",
-		"Panda" => "gấu trúc",
-		"Pangolin" => "tê tê",
-		"Papakeet" => "vẹt đuôi dài",
-		"Parrot" => " vẹt thường",
-		 "Peacock" => "công"];
-		 return $array;
-	}
-	public function pro_animal(){
-		$array_m = [
-			"Abalone"=>["ˈabəˌlōnē","bào ngư"],
-			"Aligator"=>["ˈaliˌgātər","cá sấu nam mỹ"],
-			"Anteater"=>["ˈantˌētər","thú ăn kiến"],
-			"Armadillo"=>["ˌärməˈdilō","ta tu"],
-			"Ass"=>["as","lừa"],
-			"Baboon"=>["baˈbo͞on","khỉ đầu chó"],
-			"Bat"=>["bat","dơi"],
-			"Beaver"=>["ˈbēvər"," hải ly"],
-			"Beetle"=>["ˈbētl"," bọ cánh cứng"],
-			"Blackbird"=>["ˈblakˌbərd","sáo"],
-			"Boar"=>["bôr"," lợn rừng"],
-			"Buck"=>["bək"," nai đực"],
-			"Bumble-bee"=>[""," ong nghệ"],
-			"Bunny"=>["ˈbənē","thỏ con"],
-			"Butter-fly"=>[""," bươm bướm"],
-			"Camel"=>["ˈkaməl"," lạc đà"],
-			"Canary"=>["kəˈne(ə)rē"," chim vàng anh"],
-			"Carp"=>["kärp","cá chép"],
-			"Caterpillar"=>["ˈkatə(r)ˌpilər","sâu bướm"],
-			"Centipede"=>["ˈsentəˌpēd","rết"],
-			"Chameleon"=>["-lēən","tắc kè hoa"],
-			"Chamois"=>["ˈSHamē"," sơn dương"],
-			"Chihuahua"=>["-wə","chó nhỏ có lông mươt"],
-			"Chimpanzee"=>["-pənˈzē","tinh tinh"],
-			"Chipmunk"=>["ˈCHipˌməNGk"," sóc chuột"],
-			"Cicada"=>["səˈkädə","ve sầu"],
-			"Cobra"=>["ˈkōbrə"," rắn hổ mang"],
-			"Cock roach"=>["","gián"],
-			"Cockatoo"=>["ˈkäkəˌto͞o","vẹt mào"],
-			"Crab"=>["krab","cua"],
-			"Crane"=>["krān","sếu"],
-			"Cricket"=>["ˈkrikit","dế"],
-			"Crocodile"=>["ˈkräkəˌdīl","cá sấu"],
-			"Dachshund"=>["ˈdäksənd","chó chồn"],
-			"Dalmatian"=>["","chó đốm"],
-			"Donkey"=>["ˈdäNG-","lừa"],
-			"Dove, pigeon"=>[""," bồ câu"],
-			"Dragon- fly"=>[""," chuồn chuồn"],
-			"Dromedary"=>["ˈdräməˌderē"," lạc đà 1 bướu"],
-			"Duck"=>["dək"," vịt"],
-			"Eagle"=>["ˈēgəl"," chim đại bàng"],
-			"Eel"=>["ēl","lươn"],
-			"Elephant"=>["ˈeləfənt","voi"],
-			"Falcon"=>["ˈfalkən","chim Ưng"],
-			"Fawn"=>["fän"," nai ,hươu nhỏ"],
-			"Fiddler crab"=>["","cáy"],
-			"Fire- fly"=>[""," đom đóm"],
-			"Flea"=>["flē"," bọ chét"],
-			"Fly"=>["flī","ruồi"],
-			"Foal"=>["fōl","ngựa con"],
-			"Fox"=>["fäks","cáo"],
-			"Frog"=>["fräg","ếch"],
-			"Gannet"=>["ˈganit","chim ó biển"],
-			"Gecko"=>["ˈgekō"," tắc kè"],
-			"Gerbil"=>["ˈjərbəl","chuột nhảy"],
-			"Gibbon"=>["ˈgibən","vượn"],
-			"Giraffe"=>["jəˈraf","hươu cao cổ"],
-			"Goat"=>["gōt","dê"],
-			"Gopher"=>["ˈgōfər","chuột túi, chuột vàng hay rùa đất"],
-			"Grasshopper"=>["ˈgrasˌhäpər","châu chấu nhỏ"],
-			"Greyhound"=>["ˈgrāˌhound","chó săn thỏ"],
-			"Hare"=>["he(ə)r","thỏ rừng"],
-			"Hawk"=>["hôk","diều hâu"],
-			"Hedgehog"=>["-ˌhäg","nhím"],
-			"Heron"=>["ˈherən","diệc"],
-			"Hind"=>["hīnd","hươu cái"],
-			"Hippopotamus"=>["ˌhipəˈpätəməs"," hà mã"],
-			"Horseshoe crab"=>["","Sam"],
-			"Hound"=>["hound","chó săn"],
-			"HummingBird"=>["ˈhəmiNGˌbərd"," chim ruồi"],
-			"Hyena"=>["hīˈēnə"," linh cẫu"],
-			"Iguana"=>["iˈgwänə"," kỳ nhông, kỳ đà"],
-			"Insect"=>["ˈinˌsekt","côn trùng"],
-			"Jellyfish"=>["ˈjelēˌfiSH","sứa"],
-			"Kingfisher"=>["ˈkiNGˌfiSHər","chim bói cá"],
-			"Lady bird"=>["","bọ rùa"],
-			"Lamp"=>["lamp"," cừu non"],
-			"Lemur"=>["ˈlēmər"," vượn cáo"],
-			"Leopard"=>["ˈlepərd","báo"],
-			"Lion"=>["ˈlīən","sư tử"],
-			"Llama"=>["ˈlämə","lạc đà ko bướu"],
-			"Locust"=>["ˈlōkəst"," cào cào"],
-			"Lopster"=>["","tôm hùm"],
-			"Louse"=>["con chí"," cháy rân"],
-			"Mantis"=>["ˈmantis"," bọ ngựa"],
-			"Mosquito"=>["məˈskētō"," muỗi"],
-			"Moth"=>["môTH"," bướm đêm ,sâu bướm"],
-			"Mule"=>["myo͞ol","la"],
-			"Mussel"=>["ˈməsəl","trai"],
-			"Nightingale"=>["ˈnītiNG-","chim sơn ca"],
-			"Octopus"=>["ˈäktəpəs","bạch tuột"],
-			"Orangutan"=>["əˈraNG(g)əˌtan","đười ươi"],
-			"Ostrich"=>["ˈästriCH"," đà điểu"],
-			"Otter"=>["ˈätər","rái cá"],
-			"Owl"=>["oul","cú"],
-			"Panda"=>["ˈpandə","gấu trúc"],
-			"Pangolin"=>["paNGˈgōlin","tê tê"],
-			"Papakeet"=>["","vẹt đuôi dài"],
-			"Parrot"=>["ˈparət"," vẹt thường"],
-			["Peacock"=>["ˈpēˌkäk","công"]],
-		];
-		return $array_m;
+	public function get_list_audio(){
+		$list_dir = scandir(APPPATH."../asset/audio/");
+		foreach ($list_dir as $key => $value) {
+			preg_match("/([a-z]+)/", $value,$match);
+			$return[$match[1]] = $value;
+		}
+
+		return $return;
 	}
 
+	public function get_list_image(){
+		$list_dir = scandir(APPPATH."../asset/images/");
+		foreach ($list_dir as $key => $value) {
+			preg_match("/([\w]+)_/", $value,$match);
+			$return[strtolower($match[1])] = $value;
+		}
+
+		return $return;
+	}
+
+	public function insert_vocabulary($data){
+		if(!$data["word_name"]) return false;
+		$this->db->insert('word', $data);
+	}
+
+	public function insert_word_form_array($array=[]){
+		// "word_name"
+		// "word_prononciation"
+		// "word_mean"
+		// "word_image"
+		// "word_audio"
+		// "id_cat"		
+		if($array["word_name"]=="") return fasle
+	}
 }
 
 /* End of file vocabulary.php */

@@ -11,8 +11,11 @@ class Lesson extends CI_Controller {
 	public function list_v()
 	{
 		$this->load->model('vocabulary');
-		$data = ["data" => $this->vocabulary->getAll($this->uri->segment(3)),"data_pro"=>$array_pro = $this->vocabulary->getAll_pro($this->uri->segment(3))];
-
+		$data = [
+			"data" => $this->vocabulary->getAll($this->uri->segment(3)),
+			"data_pro"=> $this->vocabulary->getAll_pro($this->uri->segment(3)),
+			"arr_audio"=> $this->vocabulary->get_list_audio()
+		];
 		$this->load->view('lesson/list',$data);
 	}
 
@@ -36,13 +39,18 @@ class Lesson extends CI_Controller {
 			echo "<h2 class='vietnamese' style='display:none;'>".$array[$_POST["text"]]."</h2>";
 			echo "<div class='img_box'>";
 			for($i=0;$i<19;$i++){
-				echo "<div class='img_ele'><img src='".base_url()."asset/images/".$_POST["text"]."_".$i.".jpg'/></div>";
+				echo "
+				<div class='img_ele'>
+					<img src='".base_url()."asset/images/".$_POST["text"]."_".$i.".jpg'/>
+				</div>";
 			}
 			echo "</div>
 			";
 		}
 		?>
 		<script>
+			word = $(".word"+cur).data("word");
+			phatam(word);
 			$(document).unbind('keyup');
 			$(document).keyup(function(e){
 				if(e.which==113||e.which==114){
