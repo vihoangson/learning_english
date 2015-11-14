@@ -20,7 +20,41 @@ class Lesson extends CI_Controller {
 	public function test_v()
 	{
 		$this->load->model('vocabulary');
-		$data = ["data" => $this->vocabulary->getAll($this->uri->segment(3))];
+		$page=(int)$this->uri->segment(4);
+		if($page==1 || $page==0){
+			$page = 0;
+		}else{
+			$page = $page-1;
+		}
+		$id = $this->uri->segment(3);
+		$per_page = 20;
+		$rs = $this->vocabulary->getAll($id);
+		for($i=$page*$per_page;$i<$per_page*($page+1);$i++){
+			$result[]=$rs[$i];
+		}
+
+		if(!$this->uri->segment(4)){
+			$page=0;
+		}else{
+			$page=(int)$this->uri->segment(4)-1;
+		}
+		$first_pos = $page * $per_page;
+		$last_pos = ($page+1) * $per_page;
+
+		$pagination = "";
+		if($page>0){
+			$pagination .= " <a href='".base_url()."Lesson/test_v/".$id."/".($page)."' class='btn btn-default'>Bài ".($page)."</a> ";
+		}
+		$pagination .= " Bài ".($page+1)." ";
+		if($last_pos < count($rs)){
+			$pagination .= " <a href='".base_url()."Lesson/test_v/".$id."/".($page+2)."' class='btn btn-default'>Bài ".($page+2)."</a> ";
+		}
+		
+
+		$data = [
+			"data" => $result,
+			"pagination" => $pagination,
+		];
 		$this->load->view('lesson/test',$data);
 	}
 

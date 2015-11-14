@@ -11,7 +11,14 @@
 		<?php 
 		if(isset($css)){
 			foreach ((array)$css as $key => $value) {
-				?><link href="<?= $value; ?>" rel="stylesheet"><?php
+				?><link href="<?= $value; ?>" rel="stylesheet">
+				<?php
+			}
+		}
+		if(isset($js)){
+			foreach ((array)$js as $key => $value) {
+				?><script src="<?= $value; ?>"></script>
+				<?php
 			}
 		}
 		?>

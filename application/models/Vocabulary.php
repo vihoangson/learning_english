@@ -58,12 +58,6 @@ class Vocabulary extends CI_Model {
 	}
 
 	public function insert_word_form_array($array=[]){
-		// "word_name"
-		// "word_prononciation"
-		// "word_mean"
-		// "word_image"
-		// "word_audio"
-		// "id_cat"
 		if($array["word_name"]=="") return fasle;
 	}
 }
