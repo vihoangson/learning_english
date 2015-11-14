@@ -28,7 +28,7 @@ class Lesson extends CI_Controller {
 		}
 		$id = $this->uri->segment(3);
 		$per_page = 20;
-		$rs = $this->word->getAll($id);
+		$rs = $this->word->getByCat($id);
 		for($i=$page*$per_page;$i<$per_page*($page+1);$i++){
 			$result[]=$rs[$i];
 		}
@@ -56,6 +56,29 @@ class Lesson extends CI_Controller {
 			"pagination" => $pagination,
 		];
 		$this->load->view('lesson/test',$data);
+	}
+
+	public function learn_v()
+	{
+
+		$this->load->model('word');
+		$page=(int)$this->uri->segment(4);
+		if($page==1 || $page==0){
+			$page = 0;
+		}else{
+			$page = $page-1;
+		}
+		$id = $this->uri->segment(3);
+		$per_page = 20;
+		$rs = $this->word->getByCat($id);
+		for($i=$page*$per_page;$i<$per_page*($page+1);$i++){
+			$result[]=$rs[$i];
+		}		
+
+		$data = [
+			"data" => $result,
+		];
+		$this->load->view('lesson/learn',$data);
 	}
 
 	public function ajax_test(){
