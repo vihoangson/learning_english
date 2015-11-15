@@ -43,10 +43,10 @@ span a {
 <div class="autocomplete_box"><input class="tag"></div>
 <script>
 
-	i=0;
-	create_box();
-	$(".box_m").hide();
-	$(".tag").focus();
+	cur_focus=0;//focus ban dau
+	create_box();// Tạo bảng box_m Html
+	$(".box_m").hide();// Ẩn box_m
+	$(".tag").focus();// Gắn focus sau khi load trang
 
 	$(document).on("click",".box_m li",function(){
 		text_c = $(this).html();
@@ -67,7 +67,7 @@ span a {
 		}
 	});
 
-	$(document).on("click",function(event){
+	$(document).on("click",function(event){// click outside to close
 		 if(!( $(event.target).is(".box_m") || $(event.target).is(".tag") ) ){
 		 	$(".box_m").hide();
 		 }
@@ -77,7 +77,7 @@ span a {
 		$(".box_m").show();
 	});
 
-	$(".tag").keyup(function(event) {
+	$(".tag").keyup(function(event) { // Nhấn phím trong input
 		if(!(event.which==38 || event.which==40)){ // Khi nhấn chữ bình thường
 			show_data();
 		}
@@ -86,7 +86,7 @@ span a {
 				text_c = $(".box_m li.active").html();
 				$(".box_m li").removeClass('active');
 				$(".box_m").hide();
-				i=0;
+				cur_focus=0;
 			}else{
 				if(!$(this).val()) return;
 				text_c = $(this).val();
@@ -98,19 +98,19 @@ span a {
 		if(event.which==38 || event.which==40){ // Bấm xuống hay lên cũng đều show box_m ra
 			$(".box_m").show();
 			if(event.which==40){ // Bấm nút xuống di chuyển active
-				if($(".box_m li").length <= i){
-					i=0;
+				if($(".box_m li").length <= cur_focus){
+					cur_focus=0;
 				}
-				i=i+1;
+				cur_focus=cur_focus+1;
 			}
 			if(event.which==38){ // Bấm nút Lên di chuyển active
-				i=i-1;
-				if(i <= 0){
-					i= $(".box_m li").length;
+				cur_focus=cur_focus-1;
+				if(cur_focus <= 0){
+					cur_focus= $(".box_m li").length;
 				}
 			}
 			$(".box_m li").removeClass('active');
-			$(".box_m li:nth-child("+(i)+")").addClass('active');
+			$(".box_m li:nth-child("+(cur_focus)+")").addClass('active');
 		}
 	});
 
