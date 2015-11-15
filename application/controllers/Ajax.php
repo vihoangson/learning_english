@@ -11,6 +11,16 @@ class Ajax extends CI_Controller {
 		echo json_encode($this->word->getByCat($_REQUEST["id"]));
 	}
 
+	public function autocomplete(){
+		header('Content-Type: application/json');
+		//if(strlen($_POST["var_input"]) < 2) return;
+		$this->db->like( 'word_name' , $_POST["var_input"] );
+		$arr = $this->db->get('word')->result_array();
+		foreach ($arr as $key => $value) {
+			$arr_m[] = $value["word_name"];
+		}
+		echo json_encode($arr_m);
+	}
 }
 
 /* End of file Ajax.php */
