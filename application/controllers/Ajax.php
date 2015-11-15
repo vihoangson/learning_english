@@ -19,7 +19,7 @@ class Ajax extends CI_Controller {
 		foreach ($arr as $key => $value) {
 			$arr_m[] = $value["word_name"];
 		}
-		echo json_encode($arr_m);
+		echo json_encode((array)$arr_m);
 	}
 }
 

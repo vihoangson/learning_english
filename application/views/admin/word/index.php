@@ -55,19 +55,33 @@ span a {
 		$(this).val("");
 		$(".box_m").hide();
 	});
-	$(document).on("click",".tag",function(){
-		show_data();
+
+	$(document).on("click",".ele_tag a",function(){// Xóa tag
+		$(this).parent().remove();
 	});
-	$(document).keyup(function(){
+
+
+	$(document).keyup(function(){// Bấn nút esc tắt box_m
 		if(event.which==27){
 			$(".box_m").hide();
 		}
 	});
+
+	$(document).on("click",function(event){
+		 if(!( $(event.target).is(".box_m") || $(event.target).is(".tag") ) ){
+		 	$(".box_m").hide();
+		 }
+	});
+
+	$(".tag").focus(function(event) {// Focus vào show box_m
+		$(".box_m").show();
+	});
+
 	$(".tag").keyup(function(event) {
-		if(!(event.which==38 || event.which==40)){ 
+		if(!(event.which==38 || event.which==40)){ // Khi nhấn chữ bình thường
 			show_data();
 		}
-		if(event.which==13){
+		if(event.which==13){ // Enter để chọn vào tag
 			if($(".box_m li.active").length>0){
 				text_c = $(".box_m li.active").html();
 				$(".box_m li").removeClass('active');
@@ -80,30 +94,26 @@ span a {
 			$(".tag").after("<span class='ele_tag'>"+text_c+" <a>x</a></span>");
 			$(this).val("");
 		}
-		
-		if(event.which==38 || event.which==40){ 
+
+		if(event.which==38 || event.which==40){ // Bấm xuống hay lên cũng đều show box_m ra
 			$(".box_m").show();
-		}
-		if(event.which==40){ //xuong
-			if($(".box_m li").length <= i){
-				i=0;
+			if(event.which==40){ // Bấm nút xuống di chuyển active
+				if($(".box_m li").length <= i){
+					i=0;
+				}
+				i=i+1;
 			}
-			i=i+1;
-		}
-		if(event.which==38){ //len
-			i=i-1;
-			if(i <= 0){
-				i= $(".box_m li").length;
+			if(event.which==38){ // Bấm nút Lên di chuyển active
+				i=i-1;
+				if(i <= 0){
+					i= $(".box_m li").length;
+				}
 			}
-		}
-		if(event.which==38 || event.which==40){ 
 			$(".box_m li").removeClass('active');
 			$(".box_m li:nth-child("+(i)+")").addClass('active');
 		}
 	});
-	$(document).on("click","a",function(){
-		$(this).parent().remove();
-	});
+
 
 	function show_data(){
 		if($(".tag").val().length > 0){
@@ -114,10 +124,7 @@ span a {
 		}
 		$.post('<?= base_url(); ?>ajax/autocomplete', {var_input: $(".tag").val()}, function(data, textStatus, xhr) {
 			var m_content="";
-			if(!data){
-				$(".box_m ul").html("");
-				return;
-			} 
+			if(!data) return;
 			$.each(data, function(index, val) {
 				m_content = m_content+("<li>"+val+"</li>");
 			});
