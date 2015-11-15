@@ -4,19 +4,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <?php $this->load->view('_include/header'); ?>
 <style>
 span.ele_tag {
-    background-color: red;
+    background-color: #EAEAEA;
     margin: 5px;
     padding: 5px;
     border-radius: 5px;
 }
+span a {
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
 </style>
-<div class="tag_box"></div><input class="tag">
+<input class="tag">
 <script>
+	$(".tag").focus();
 	$(".tag").keyup(function(event) {
 		if(event.which==13){
-			$(".tag_box").append("<span class='ele_tag'>"+$(this).val()+"</span>");
+			if(!$(this).val()) return;
+			$(".tag").after("<span class='ele_tag'>"+$(this).val()+" <a>x</a></span>");
 			$(this).val("");
 		}
 	});
+	$(document).on("click","a",function(){
+		$(this).parent().remove();
+	});
+
 </script>
 <?php $this->load->view('_include/footer'); ?>
