@@ -32,9 +32,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<td>
 			<?php 
 			for($i=0;$i<3;$i++){
-			  ?> <img src='<?= base_url(); ?>asset/images/<?php echo $value["word_name"] ?>_<?php echo $i; ?>.jpg'> <?php 
+				?> <img src='<?= base_url(); ?>asset/images/<?php echo str_replace(" ","_",$value["word_name"]); ?>_<?php echo $i; ?>.jpg'> <?php
 			}
-			 ?>			
+			?>
 			</td>
 		</tr>
 		<?php

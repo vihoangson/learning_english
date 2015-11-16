@@ -9,16 +9,16 @@
 	];
 	$this->load->view('_include/header',$data_header);
 
-	  ?> 
+	?>
 <style>
 	.correct{
 
 	}
 </style>
-	   <?php 	
+	<?php
 	shuffle($data);
 	$i=0;
-	  ?>
+	?>
 <div style="height:70px;">
 <div class="alert alert-danger " style="display:none;" >
 	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -29,7 +29,7 @@
 	<strong>Correct</strong> Congratulation
 </div>
 </div>
-	   <?php 
+	<?php
 	echo '<button class="btn btn-default btn-repeat">Repeat</button><hr>';
 	while(true){
 		if($i>3){
@@ -41,19 +41,17 @@
 		}
 		$i++;
 	}
-?>
 
-<?php
 	for($j=0;$j<20;$j++){
 		$arr[] = $j;
 	}
 	shuffle($arr);
 	foreach ($arr as $key => $value) {
-  		?> <img class="<?= ($value==0?"correct":""); ?>" data-word="<?= strtolower($data[$i+$value]["word_name"]); ?>" src="<?= base_url(); ?>asset/images/<?= $data[$i+$value]["word_name"]; ?>_0.jpg"> <?php 
-	} 
+		?> <img class="<?= ($value==0?"correct":""); ?>" data-word="<?= strtolower($data[$i+$value]["word_name"]); ?>" src="<?= base_url(); ?>asset/images/<?= str_replace(" ","_",$data[$i+$value]["word_name"]); ?>_0.jpg"> <?php 
+	}
 ?>
 		<audio class="audioDemo play_sound" controls preload="auto" hidden="hidden" autoplay> 
-		   <source src="<?= base_url(); ?>asset/audio/<?= $data[$i]["word_name"]; ?>.mp3" type="audio/mp3">
+			<source src="<?= base_url(); ?>asset/audio/<?= $data[$i]["word_name"]; ?>.mp3" type="audio/mp3">
 		</audio>
 		<script>
 			$(".correct").click(function(event) {
@@ -74,9 +72,8 @@
 			$(".btn-repeat").click(function(){
 				phatam($(".correct").data("word"));
 			});
-	
 
-			function phatam(word){			
+			function phatam(word){
 				$(".play_sound source").attr("src","<?= base_url(); ?>asset/audio/"+word+".mp3");
 				$(".play_sound").trigger('load');
 				$(".play_sound").trigger("play");
