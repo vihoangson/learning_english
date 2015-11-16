@@ -2,6 +2,9 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Control_word extends CI_Controller {
+	$menu_nav = [
+		"admin/control_word/get_link_for_word_audio"=>"Show từ không có audio"
+	];
 
 	public function index()
 	{
