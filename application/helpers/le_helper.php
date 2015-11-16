@@ -9,7 +9,11 @@ function downloadFile ($url, $path) {
 
 		if ($newf)
 		while(!feof($file)) {
-			fwrite($newf, fread($file, 1024 * 8 ), 1024 * 8 );
+			if(fwrite($newf, fread($file, 1024 * 8 ), 1024 * 8 )){
+				$flag=true;
+			}else{
+				$flag=false;
+			}
 		}
 	}
 
@@ -20,6 +24,7 @@ function downloadFile ($url, $path) {
 	if ($newf) {
 		fclose($newf);
 	}
+	return $flag;
  }
 
 	function remove_special_character($str)
