@@ -54,28 +54,7 @@ class Word extends CI_Model {
 		return $return;
 	}
 
-	public function strtolower_all_word_name(){
-		$rs = $this->getAll();
-		foreach ($rs as $key => $value) {
 
-			if(preg_match("/([A-Z])/",$value["word_name"])){
-				$object = ["word_name" => strtolower($value["word_name"])];
-				$this->db->where('id', $value["id"]);
-				if($this->db->update('word', $object)){
-					$return[] = $value["word_name"];
-				}
-			}
-
-			if(preg_match("/([A-Z])/",$value["word_image"])){
-				$object = ["word_image" => strtolower($value["word_image"])];
-				$this->db->where('id', $value["id"]);
-				if($this->db->update('word', $object)){
-					$return[] = $value["word_image"];
-				}
-			}
-		}
-		return $return;
-	}
 
 	public function get_list_image(){
 		$list_dir = scandir(APPPATH."../asset/images/");
@@ -94,6 +73,50 @@ class Word extends CI_Model {
 
 	public function insert_word_form_array($array=[]){
 		if($array["word_name"]=="") return fasle;
+	}
+
+	/*
+		Function total_check
+	*/
+	public function total_check(){
+		$rs = $this->getAll();
+		foreach ($rs as $key => $value) {
+			$this->_strtolower_all_word_name($value);
+			$this->_strtolower_all_word_image($value);
+		}
+		return $return;
+	}
+
+	/*
+		Function _strtolower_all_word_name
+		Kiểm tra và update lại word_name không viết hoa
+	*/
+	private function _strtolower_all_word_name($value){
+		if(preg_match("/([A-Z])/",$value["word_name"])){
+			$object = ["word_name" => strtolower($value["word_name"])];
+			$this->db->where('id', $value["id"]);
+			if($this->db->update('word', $object)){
+				$return = $value["word_name"];
+			}
+		}
+		return $return;
+	}
+
+	/*
+
+		Function _strtolower_all_word_image
+		Kiểm tra và update lại word_image không viết hoa
+
+	*/
+	private function _strtolower_all_word_image($value){
+		if(preg_match("/([A-Z])/",$value["word_image"])){
+			$object = ["word_image" => strtolower($value["word_image"])];
+			$this->db->where('id', $value["id"]);
+			if($this->db->update('word', $object)){
+				$return[] = $value["word_image"];
+			}
+		}
+		return $return;
 	}
 }
 

@@ -12,7 +12,7 @@ class Control_word extends CI_Controller {
 	public function get_link_for_word_audio(){
 		$this->load->model('word');
 		$none_audio = $this->word->get_word_none_audio();
-		print_r($this->word->strtolower_all_word_name());
+		print_r($this->word->total_check());
 		foreach ($none_audio as $key => $value) {
 			$value = strtolower($value);
 			echo "
