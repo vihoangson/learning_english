@@ -117,23 +117,6 @@ class Lesson extends CI_Controller {
 		<?php
 	}
 
-	private function get_data_google_translate_api($word){
-		$link = "https://translate.google.com/translate_a/single?client=t&sl=en&tl=vi&hl=vi&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=at&ie=UTF-8&oe=UTF-8&otf=1&ssel=0&tsel=0&kc=3&tk=208724|331224&q=".$word;
-		$json = file_get_contents($link);
-		$array = (array_values((explode(",", str_replace(["[","]"], ["",""], $json)))) );
-		return $array;
-	}
-
-	public function transtale_api(){
-		// $this->load->model('word');
-		// $array_w = $this->word->getByCat(1);
-		// foreach ($array_w as $key => $value) {
-		// 	$array = $this->get_data_google_translate_api(strtolower($key));
-		// 	echo "<p>".$key."____".($array[8])."____".$value."</p>";
-		// }
-	}
-
-
 }
 
 /* End of file lesson.php */

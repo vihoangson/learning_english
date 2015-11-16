@@ -40,11 +40,13 @@ span a {
 }
 
 </style>
-<div class="autocomplete_box"><input class="tag"></div>
-<script>
 
+<div class="autocomplete_box"></div>
+
+
+<script>
 	cur_focus=0;//focus ban dau
-	create_box();// Tạo bảng box_m Html
+	create_box(".autocomplete_box");// Tạo bảng box_m Html
 	$(".box_m").hide();// Ẩn box_m
 	$(".tag").focus();// Gắn focus sau khi load trang
 
@@ -68,9 +70,9 @@ span a {
 	});
 
 	$(document).on("click",function(event){// click outside to close
-		 if(!( $(event.target).is(".box_m") || $(event.target).is(".tag") ) ){
-		 	$(".box_m").hide();
-		 }
+		if(!( $(event.target).is(".box_m") || $(event.target).is(".tag") ) ){
+			$(".box_m").hide();
+		}
 	});
 
 	$(".tag").focus(function(event) {// Focus vào show box_m
@@ -104,9 +106,9 @@ span a {
 				cur_focus=cur_focus+1;
 			}
 			if(event.which==38){ // Bấm nút Lên di chuyển active
-				cur_focus=cur_focus-1;
+				cur_focus = cur_focus - 1;
 				if(cur_focus <= 0){
-					cur_focus= $(".box_m li").length;
+					cur_focus = $(".box_m li").length;
 				}
 			}
 			$(".box_m li").removeClass('active');
@@ -132,8 +134,9 @@ span a {
 		});
 	}
 
-	function create_box(){
+	function create_box(selector_t){
 		if($(".box_m").length==0){
+			$(selector_t).append('<input class=\"tag\">');
 			$(".tag").after("\
 				<div class='box_m'><ul></ul></div>");
 		}

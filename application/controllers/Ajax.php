@@ -15,6 +15,7 @@ class Ajax extends CI_Controller {
 		header('Content-Type: application/json');
 		//if(strlen($_POST["var_input"]) < 2) return;
 		$this->db->like( 'word_name' , $_POST["var_input"] );
+		$this->db->limit(10);
 		$arr = $this->db->get('word')->result_array();
 		foreach ($arr as $key => $value) {
 			$arr_m[] = $value["word_name"];

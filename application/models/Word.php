@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Word extends CI_Model {
 
-	public function getAll($id_lesson){
+	public function getAll(){
 		$data = ($this->db->get('word')->result_array());
 		return $data;
 	}
@@ -32,6 +32,18 @@ class Word extends CI_Model {
 		}
 	}
 
+	public function get_word_none_audio(){
+		$id = 1;
+		$rs = $this->getAll();
+		$arr_files_audio = scandir(APPPATH."../asset/audio");
+		foreach ($rs as $key => $value) {
+			if(!in_array(strtolower($value["word_name"]).".mp3", $arr_files_audio)){
+				$result[] = $value["word_name"];
+			}
+		}
+		return (array)$result;
+	}
+
 	public function get_list_audio(){
 		$list_dir = scandir(APPPATH."../asset/audio/");
 		foreach ($list_dir as $key => $value) {
@@ -39,6 +51,29 @@ class Word extends CI_Model {
 			$return[$match[1]] = $value;
 		}
 
+		return $return;
+	}
+
+	public function strtolower_all_word_name(){
+		$rs = $this->getAll();
+		foreach ($rs as $key => $value) {
+
+			if(preg_match("/([A-Z])/",$value["word_name"])){
+				$object = ["word_name" => strtolower($value["word_name"])];
+				$this->db->where('id', $value["id"]);
+				if($this->db->update('word', $object)){
+					$return[] = $value["word_name"];
+				}
+			}
+
+			if(preg_match("/([A-Z])/",$value["word_image"])){
+				$object = ["word_image" => strtolower($value["word_image"])];
+				$this->db->where('id', $value["id"]);
+				if($this->db->update('word', $object)){
+					$return[] = $value["word_image"];
+				}
+			}
+		}
 		return $return;
 	}
 
