@@ -2,14 +2,15 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Control_word extends CI_Controller {
-	$menu_nav = [
-		"admin/control_word/get_link_for_word_audio"=>"Show từ không có audio"
-	];
 
 	public function index()
 	{
 		$this->load->model('word');
 		$this->load->view('admin/word/index');
+	}
+
+	public function add_tag(){
+		$this->load->view('admin/word/add_tag');
 	}
 
 	public function insert_new_word(){

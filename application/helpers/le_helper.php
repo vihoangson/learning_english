@@ -1,5 +1,4 @@
 <?php
-
 function downloadFile ($url, $path) {
 
 	$newfname = $path;

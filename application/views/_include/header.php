@@ -1,5 +1,13 @@
+<?php 
+if(!$navigation_bar){
+	$navigation_bar = [
+		base_url() => "Trang chủ",
+		base_url()."admin" => "Admin",
+	];
+}
+ ?>
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,8 +60,10 @@
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
+						<?php 
+						foreach ((array)$navigation_bar as $key => $value) {
+							echo "<li><a href=\"".$key."\">".$value."</a></li>";
+						} ?>
 					</ul>
 					<form class="navbar-form navbar-left" role="search">
 						<div class="form-group">
