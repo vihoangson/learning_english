@@ -27,6 +27,11 @@ class Lesson extends CI_Controller {
 			$page = $page-1;
 		}
 		$id = $this->uri->segment(3);
+		if(!$id){
+			$id=$this->session->userdata('id_cat');
+		}else{
+			$this->session->set_userdata(['id_cat' => $id]);
+		}
 		$per_page = 20;
 		$rs = $this->word->getByCat($id);
 		for($i=$page*$per_page;$i<$per_page*($page+1);$i++){
@@ -60,7 +65,6 @@ class Lesson extends CI_Controller {
 
 	public function learn_v()
 	{
-
 		$this->load->model('word');
 		$page=(int)$this->uri->segment(4);
 		if($page==1 || $page==0){
@@ -69,6 +73,11 @@ class Lesson extends CI_Controller {
 			$page = $page-1;
 		}
 		$id = $this->uri->segment(3);
+		if(!$id){
+			$id=$this->session->userdata('id_cat');
+		}else{
+			$this->session->set_userdata(['id_cat' => $id]);
+		}
 		$per_page = 20;
 		$rs = $this->word->getByCat($id);
 		for($i=$page*$per_page;$i<$per_page*($page+1);$i++){
